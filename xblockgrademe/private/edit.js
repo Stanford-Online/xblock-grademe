@@ -20,8 +20,9 @@ function XblockGrademeEdit(runtime, element) {
         $.ajax(url, {
             type: 'POST',
             data: JSON.stringify({
-                // TODO: Add entries here for each field to be saved
-                'name': $('#xblock_xblockgrademe_name').val(),
+                'display_name': $('#xblockgrademe_display_name').val(),
+                'description_text': $('#xblockgrademe_description_text').html(),
+                'button_text': $('#xblockgrademe_button_text').val(),
             }),
             success: function buttonSaveOnSuccess() {
                 runtime.notify('save', {

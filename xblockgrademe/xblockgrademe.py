@@ -25,15 +25,31 @@ class XblockGrademe(XBlock):
             ('Xblock GradeMe',
              """<sequence_demo>
                     <xblockgrademe />
-                    <xblockgrademe name="My First XBlock" />
                 </sequence_demo>
              """),
         ]
 
-    name = String(
-        default='Xblock GradeMe',
+    display_name = String(
+        default='"Grade Me" Button',
         scope=Scope.settings,
-        help="This is the XBlock's name",
+        help="The name of the 'Grade Me' button",
+    )
+
+    description_text = String(
+        default=(
+            "<p>By clicking the button below, you assert that you have completed the course in its entirety. "
+            "Your current score on the Progress page will be used to determine if you have earned a Statement of "
+            "Accomplishment and for what level you qualify. Do not click the button below until you have "
+            "finished the course and are satisfied with your score.</p>"
+        ),
+        scope=Scope.settings,
+        help="This is the description of what clicking the button means.",
+    )
+
+    button_text = String(
+        default="Yes, I have completed this course.",
+        scope=Scope.settings,
+        help="This is the text displayed on the button.",
     )
 
     def student_view(self, context=None):
@@ -49,6 +65,11 @@ class XblockGrademe(XBlock):
                 'view.js.min.js',
             ],
             fragment_js='XblockGrademeView',
+            context={
+                'display_name': self.display_name,
+                'description_text': self.description_text,
+                'button_text': self.button_text,
+            },
         )
         return fragment
 
@@ -67,6 +88,11 @@ class XblockGrademe(XBlock):
                 'edit.js.min.js',
             ],
             fragment_js='XblockGrademeEdit',
+            context={
+                'display_name': self.display_name,
+                'description_text': self.description_text,
+                'button_text': self.button_text,
+            },
         )
         return fragment
 
@@ -78,10 +104,14 @@ class XblockGrademe(XBlock):
         Returns: the new field values
         """
 
-        # TODO: Add an entry here for each field.
-        self.name = data['name']
+        self.display_name = data['display_name']
+        self.description_text = data['description_text']
+        self.button_text = data['button_text']
+
         return {
-            'name': self.name,
+            'display_name': self.display_name,
+            'description_text': self.description_text,
+            'button_text': self.button_text,
         }
 
     def get_resource_string(self, path):
@@ -107,6 +137,7 @@ class XblockGrademe(XBlock):
         urls_css=[],
         urls_js=[],
         fragment_js=None,
+        context=None,
     ):
         """
         Assemble the HTML, JS, and CSS for an XBlock fragment
@@ -114,6 +145,7 @@ class XblockGrademe(XBlock):
         html_source = self.get_resource_string(path_html)
         html_source = html_source.format(
             self=self,
+            **context
         )
         fragment = Fragment(html_source)
         for url in urls_css:
