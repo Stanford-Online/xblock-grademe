@@ -15,21 +15,21 @@ setuptools.setup(
     url=package_json.get('homepage'),
     license='AGPL-3.0',
     packages=[
-        'xblockgrademe',
+        'grademebutton',
     ],
     install_requires=[
         'XBlock',
     ],
     entry_points={
         'xblock.v1': [
-            'xblockgrademe = xblockgrademe:XblockGrademe',
+            'grademebutton = grademebutton:Grademebutton',
         ],
     },
     package_dir={
-        'xblockgrademe': 'xblockgrademe',
+        'grademebutton': 'grademebutton',
     },
     package_data={
-        "xblockgrademe": [
+        "grademebutton": [
             'public/*',
         ],
     },
