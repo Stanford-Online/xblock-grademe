@@ -3,7 +3,7 @@ module.exports = function (grunt) {
 
     var jshintrc = '.jshintrc';
     var gruntFile = 'Gruntfile.js';
-    var directoryPackage = './xblockgrademe';
+    var directoryPackage = './grademebutton';
     var directoryPrivate = directoryPackage + '/private';
     var directoryPublic = directoryPackage + '/public';
     var directoryPrivateJsAll = directoryPrivate + '/**/*.js';
@@ -94,8 +94,8 @@ module.exports = function (grunt) {
                     removeEmptyAttributes: true,
                 },
                 files: {
-                    'xblockgrademe/public/edit.html': directoryPrivate + '/edit.html',
-                    'xblockgrademe/public/view.html': directoryPrivate + '/view.html',
+                    'grademebutton/public/edit.html': directoryPrivate + '/edit.html',
+                    'grademebutton/public/view.html': directoryPrivate + '/view.html',
                 },
             },
         },
@@ -113,26 +113,26 @@ module.exports = function (grunt) {
             view: {
                 options: {
                     sourceMap: true,
-                    sourceMapFilename: 'xblockgrademe/public/view.less.min.css.map',
+                    sourceMapFilename: 'grademebutton/public/view.less.min.css.map',
                     outputSourceFiles: true,
                     cleancss: true,
                     compress: true,
                 },
                 files: {
-                    'xblockgrademe/public/view.less.min.css':
+                    'grademebutton/public/view.less.min.css':
                         directoryPublic + '/view.less',
                 },
             },
             edit: {
                 options: {
                     sourceMap: true,
-                    sourceMapFilename: 'xblockgrademe/public/edit.less.min.css.map',
+                    sourceMapFilename: 'grademebutton/public/edit.less.min.css.map',
                     outputSourceFiles: true,
                     cleancss: true,
                     compress: true,
                 },
                 files: {
-                    'xblockgrademe/public/edit.less.min.css':
+                    'grademebutton/public/edit.less.min.css':
                         directoryPublic + '/edit.less',
                 },
             },
