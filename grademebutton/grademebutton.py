@@ -9,9 +9,10 @@ from xblock.core import XBlock
 from xblock.fields import Scope
 from xblock.fields import String
 from xblock.fragment import Fragment
+import cgi
 
 
-class XblockGrademe(XBlock):
+class Grademebutton(XBlock):
     """
     Button to send request to server to grade user.
     """
@@ -24,16 +25,31 @@ class XblockGrademe(XBlock):
         return [
             ('Xblock GradeMe',
              """<sequence_demo>
-                    <xblockgrademe />
-                    <xblockgrademe name="My First XBlock" />
+                    <grademebutton />
                 </sequence_demo>
              """),
         ]
 
-    name = String(
-        default='Xblock GradeMe',
+    display_name = String(
+        default='"Grade Me" Button',
         scope=Scope.settings,
-        help="This is the XBlock's name",
+        help="The name of the 'Grade Me' button",
+    )
+
+    description_text = String(
+        default=("By clicking the button below, you assert that you have completed the course in its entirety. "
+                "Your current score on the Progress page will be used to determine if you have earned a Statement of "
+                "Accomplishment and for what level you qualify. Do not click the button below until you have "
+                "finished the course and are satisfied with your score."
+                ),
+        scope=Scope.settings,
+        help="This is the description of what clicking the button means.",
+    )
+
+    button_text = String(
+        default="Yes, I have completed this course.",
+        scope=Scope.settings,
+        help="This is the text displayed on the button.",
     )
 
     def student_view(self, context=None):
@@ -48,7 +64,12 @@ class XblockGrademe(XBlock):
             paths_js=[
                 'view.js.min.js',
             ],
-            fragment_js='XblockGrademeView',
+            fragment_js='GrademebuttonView',
+            context={
+                'display_name': cgi.escape(self.display_name, quote=True),
+                'description_text': cgi.escape(self.description_text),
+                'button_text': cgi.escape(self.button_text, quote=True),
+            },
         )
         return fragment
 
@@ -66,7 +87,12 @@ class XblockGrademe(XBlock):
             paths_js=[
                 'edit.js.min.js',
             ],
-            fragment_js='XblockGrademeEdit',
+            fragment_js='GrademebuttonEdit',
+            context={
+                'display_name': cgi.escape(self.display_name, quote=True),
+                'description_text': cgi.escape(self.description_text),
+                'button_text': cgi.escape(self.button_text, quote=True),
+            },
         )
         return fragment
 
@@ -78,10 +104,14 @@ class XblockGrademe(XBlock):
         Returns: the new field values
         """
 
-        # TODO: Add an entry here for each field.
-        self.name = data['name']
+        self.display_name = data['display_name']
+        self.description_text = data['description_text']
+        self.button_text = data['button_text']
+
         return {
-            'name': self.name,
+            'display_name': self.display_name,
+            'description_text': self.description_text,
+            'button_text': self.button_text,
         }
 
     def get_resource_string(self, path):
@@ -107,6 +137,7 @@ class XblockGrademe(XBlock):
         urls_css=[],
         urls_js=[],
         fragment_js=None,
+        context=None,
     ):
         """
         Assemble the HTML, JS, and CSS for an XBlock fragment
@@ -114,6 +145,7 @@ class XblockGrademe(XBlock):
         html_source = self.get_resource_string(path_html)
         html_source = html_source.format(
             self=self,
+            **context
         )
         fragment = Fragment(html_source)
         for url in urls_css:
