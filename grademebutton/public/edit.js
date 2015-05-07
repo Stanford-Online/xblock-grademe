@@ -1,4 +1,4 @@
-function XblockGrademeEdit(runtime, element) {
+function GrademebuttonEdit(runtime, element) {
     'use strict';
 
     var $ = window.$;
@@ -20,9 +20,9 @@ function XblockGrademeEdit(runtime, element) {
         $.ajax(url, {
             type: 'POST',
             data: JSON.stringify({
-                'display_name': $('#xblockgrademe_display_name').val(),
-                'description_text': $('#xblockgrademe_description_text').html(),
-                'button_text': $('#xblockgrademe_button_text').val(),
+                'display_name': $('#grademebutton_display_name').val(),
+                'description_text': $('#grademebutton_description_text').html(),
+                'button_text': $('#grademebutton_button_text').val(),
             }),
             success: function buttonSaveOnSuccess() {
                 runtime.notify('save', {

@@ -1,4 +1,4 @@
-function XblockGrademeView(runtime, element) {
+function GrademebuttonView(runtime, element) {
     'use strict';
 
     var $ = window.jQuery;
@@ -15,20 +15,20 @@ function XblockGrademeView(runtime, element) {
     var scraped_username = $('li.primary a.user-link').text();
 
     if (scraped_username) {
-        $('.xblockgrademe_block .user_verify_button').addEventListener('click', function (event) {
+        $('.grademebutton_block .user_verify_button').addEventListener('click', function (event) {
             (function (event) {
                 $.ajax({
                     type: 'POST',
                     url: '/request_certificate',
                     data: {'course_id': $$course_id}, //TODO: switch this to the Course Service when available
                     success: function (data) {
-                        $('.xblockgrademe_block .verify-button-message-text').html(success_message);
+                        $('.grademebutton_block .verify-button-message-text').html(success_message);
                     }
                 });
-            }).call($('.xblockgrademe_block .user_verify_button'), event);
+            }).call($('.grademebutton_block .user_verify_button'), event);
         });
     } else {
-        $('.xblockgrademe_block .verify-button-message-text').html(failure_message).addClass('error');
-        $('.xblockgrademe_block .user_verify_button').remove();
+        $('.grademebutton_block .verify-button-message-text').html(failure_message).addClass('error');
+        $('.grademebutton_block .user_verify_button').remove();
     }
 }

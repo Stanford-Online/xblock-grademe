@@ -11,7 +11,7 @@ from xblock.fields import String
 from xblock.fragment import Fragment
 
 
-class XblockGrademe(XBlock):
+class Grademebutton(XBlock):
     """
     Button to send request to server to grade user.
     """
@@ -24,7 +24,7 @@ class XblockGrademe(XBlock):
         return [
             ('Xblock GradeMe',
              """<sequence_demo>
-                    <xblockgrademe />
+                    <grademebutton />
                 </sequence_demo>
              """),
         ]
@@ -64,7 +64,7 @@ class XblockGrademe(XBlock):
             paths_js=[
                 'view.js.min.js',
             ],
-            fragment_js='XblockGrademeView',
+            fragment_js='GrademebuttonView',
             context={
                 'display_name': self.display_name,
                 'description_text': self.description_text,
@@ -87,7 +87,7 @@ class XblockGrademe(XBlock):
             paths_js=[
                 'edit.js.min.js',
             ],
-            fragment_js='XblockGrademeEdit',
+            fragment_js='GrademebuttonEdit',
             context={
                 'display_name': self.display_name,
                 'description_text': self.description_text,
