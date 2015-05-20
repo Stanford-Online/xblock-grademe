@@ -1,6 +1,6 @@
 {
   "name": "xblock-grademe",
-  "title": "Xblock GradeMe",
+  "title": "GradeMe Button XBlock",
   "description": "Button to send request to server to grade user.",
   "version": "0.1.0",
   "homepage": "https://github.com/Stanford-Online/xblock-grademe",
