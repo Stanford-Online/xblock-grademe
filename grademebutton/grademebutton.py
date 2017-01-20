@@ -52,6 +52,10 @@ class Grademebutton(XBlock):
         help="This is the text displayed on the button.",
     )
 
+    # Decorate the view in order to support multiple devices e.g. mobile
+    # See: https://openedx.atlassian.net/wiki/display/MA/Course+Blocks+API
+    # section 'View @supports(multi_device) decorator'
+    @XBlock.supports('multi_device')
     def student_view(self, context=None):
         """
         Build the fragment for the default student view
