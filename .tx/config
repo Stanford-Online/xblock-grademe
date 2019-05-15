@@ -1,0 +1,8 @@
+[main]
+host = https://www.transifex.com
+
+[stanford-openedx-xblocks.gradme-button]
+file_filter = grademebutton/translations/<lang>/LC_MESSAGES/django.po
+source_file = grademebutton/translations/en/LC_MESSAGES/django.po
+source_lang = en
+type = PO

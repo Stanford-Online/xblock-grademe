@@ -1,0 +1,40 @@
+addons:
+  apt:
+    packages:
+    - nodejs
+language: python
+sudo: false
+matrix:
+  include:
+    - python: 3.6
+      env: TOXENV=csslint
+    - python: 3.6
+      env: TOXENV=eslint
+    - python: 3.6
+      env: TOXENV=pycodestyle
+    - python: 3.6
+      env: TOXENV=pylint
+    - python: 3.6
+      env: TOXENV=py36
+    - python: 2.7
+      env: TOXENV=pycodestyle
+    - python: 2.7
+      env: TOXENV=pylint
+    - python: 2.7
+      env: TOXENV=py27
+before_install:
+  - "pip install -U pip"
+  - export BOTO_CONFIG=/dev/null
+cache:
+    directories:
+        - $HOME/.cache/pip
+install:
+  - "make requirements"
+  - "pip install coveralls"
+script:
+  - make test
+branches:
+    only:
+      - master
+after_success:
+  coveralls

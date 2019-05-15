@@ -1,0 +1,20 @@
+<div class="grademebutton_block">
+    <h2>{{display_name}}</h2>
+    {% if is_anonymous_user %}
+    <p class="error verify-button-message-text">
+        We&apos;re sorry; users who have not created accounts and registered
+        for the course may not receive a Statement of Accomplishment.
+    </p>
+    {% else %}
+    <div class="verify-button-by-clicking-msg">
+        <p>{{description_text}}</p>
+    </div>
+    <input value="{{button_text}}" class="user_verify_button" type="button" />
+    <p class="verify-button-message-text">
+        Your grading request has been received. If you have passed,
+        your Statement of Accomplishment should be available on your
+        <a href="/dashboard">account dashboard</a> page
+        within the next 20 minutes.
+    </p>
+    {% endif %}
+</div>

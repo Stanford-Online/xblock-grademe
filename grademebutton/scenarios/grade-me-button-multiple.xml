@@ -1,0 +1,14 @@
+<sequence_demo>
+    <vertical_demo>
+        <grademebutton
+            display_name="with a custom display name"
+            description_text="Put descriptive text here"
+            button_text="Click here for grades"
+        />
+        <grademebutton description="Write stuff here" />
+    </vertical_demo>
+    <vertical_demo>
+        <grademebutton description="Write more here" />
+        <grademebutton description="Keep going" />
+    </vertical_demo>
+</sequence_demo>

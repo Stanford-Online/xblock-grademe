@@ -1,36 +1,49 @@
-import json
-import setuptools
+"""
+XBlock for creating a Grade-Me button
+"""
+from os import path
+from setuptools import setup
 
 
-package_json_file = open('package.json', 'r')
-package_json = json.load(package_json_file)
+version = '0.1.0'
+description = __doc__.strip().split('\n')[0]
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.rst')) as file_in:
+    long_description = file_in.read()
 
-setuptools.setup(
-    name=package_json.get('name', 'xblock-test'),
-    version=package_json.get('version', '0.1.0'),
-    description=package_json.get('description'),
-    long_description=package_json.get('description'),
-    author=package_json.get('author', {}).get('name'),
-    author_email=package_json.get('author', {}).get('email'),
-    url=package_json.get('homepage'),
+setup(
+    name='xblock-grademe',
+    version=version,
+    description=description,
+    long_description=long_description,
+    author='Giulio Gratta',
+    author_email='giuliog@stanford.edu',
+    url='https://github.com/Stanford-Online/xblock-grademe',
     license='AGPL-3.0',
     packages=[
         'grademebutton',
     ],
     install_requires=[
+        'Django<2.0.0',
+        'edx-opaque-keys',
+        'mock',
+        'six',
         'XBlock',
+        'xblock-utils',
     ],
     entry_points={
         'xblock.v1': [
-            'grademebutton = grademebutton:Grademebutton',
+            'grademebutton = grademebutton.xblocks:GradeMeButton',
         ],
     },
     package_dir={
         'grademebutton': 'grademebutton',
     },
     package_data={
-        "grademebutton": [
+        'grademebutton': [
             'public/*',
+            'scenarios/*.xml',
+            'templates/*',
         ],
     },
     classifiers=[
@@ -44,4 +57,5 @@ setuptools.setup(
         'Topic :: Education',
         'Topic :: Internet :: WWW/HTTP',
     ],
+    test_suite='grademebutton.tests',
 )

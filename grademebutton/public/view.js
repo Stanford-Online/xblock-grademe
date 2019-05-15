@@ -1,34 +1,54 @@
-function GrademebuttonView(runtime, element) {
+/* eslint-disable no-unused-vars */
+/**
+ * Initialize the student view
+ * @param {Object} runtime - The XBlock JS Runtime
+ * @param {Object} element - The containing DOM element for this instance of the XBlock
+ * @returns {undefined} nothing
+ */
+function GradeMeButtonView(runtime, element) {
+    /* eslint-enable no-unused-vars */
     'use strict';
 
     var $ = window.jQuery;
     var $element = $(element);
+    /* eslint-disable camelcase */
+    /* eslint-disable no-undef */
+    var courseId = window.$$course_id || '';
+    /* eslint-enable camelcase */
+    /* eslint-enable no-undef */
+    var $message = $element.find('.grademebutton_block .verify-button-message-text');
 
-    var failure_message = 'We are sorry; users who have not created accounts and registered ' +
-                          'for the course may not receive a Statement of Accomplishment.';
-    
-    var success_message = 'Your grading request has been received. If you have passed, your Statement of ' +
-                          'Accomplishment should be available on your <a href="/dashboard">account dashboard</a> ' +
-                          'page within the next 20 minutes.';
-
-    //TODO: switch this to use the User Service
-    var scraped_username = $('li.primary a.user-link').text();
-
-    if (scraped_username) {
-        $('.grademebutton_block .user_verify_button').on('click', function (event) {
-            (function (event) {
-                $.ajax({
-                    type: 'POST',
-                    url: '/request_certificate',
-                    data: {'course_id': $$course_id}, //TODO: switch this to the Course Service when available
-                    success: function (data) {
-                        $('.grademebutton_block .verify-button-message-text').html(success_message);
-                    }
-                });
-            }).call($('.grademebutton_block .user_verify_button'), event);
-        });
-    } else {
-        $('.grademebutton_block .verify-button-message-text').html(failure_message).addClass('error');
-        $('.grademebutton_block .user_verify_button').remove();
+    /**
+     * Handle AJAX handler response
+     * @returns {undefined} nothing
+     */
+    function onError() {
+        $message
+            .text('Please try again.')
+            .addClass('error')
+            .show();
     }
+
+    /**
+     * Handle AJAX handler response
+     * @returns {undefined} nothing
+     */
+    function onSuccess() {
+        $message.show();
+    }
+
+    $element.find('.grademebutton_block .user_verify_button').on('click', function() {
+        $message.hide();
+        /* eslint-disable camelcase */
+        $.ajax({
+            type: 'POST',
+            url: '/request_certificate',
+            data: {
+                course_id: courseId,
+            }, // TODO: switch this to the Course Service when available
+            error: onError,
+            success: onSuccess,
+        });
+        /* eslint-enable camelcase */
+    });
 }
