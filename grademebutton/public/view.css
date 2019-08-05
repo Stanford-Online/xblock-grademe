@@ -1,0 +1,19 @@
+.grademebutton_block .verify-button-message-text {
+  color: #008200;
+  display: none;
+  font-weight: bold;
+  margin-top: 25px;
+}
+.grademebutton_block .verify-button-message-text.error {
+  color: #bb0000;
+  display: block;
+}
+.grademebutton_block .verify-button-message-text a {
+  color: #222222;
+  font-weight: bold;
+  text-decoration: underline;
+}
+.grademebutton_block .verify-button-message-text a:hover {
+  color: #222222;
+  text-decoration: none;
+}
